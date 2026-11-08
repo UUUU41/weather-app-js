@@ -1,34 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
-    form { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0; }
-    input, button { padding: 0.6rem; font-size: 1rem; }
-    button { cursor: pointer; }
-    #result { border: 1px solid #d0d7de; border-radius: 8px; padding: 1rem; margin-top: 1rem; }
-    .quick { margin-top: 1rem; }
-    .quick button { margin-right: 0.5rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather App — Live Weather & 5-Day Forecast</title>
+<meta name="description" content="A simple weather app: search any city and see current weather plus a 5-day forecast, powered by the free Open-Meteo API.">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Weather App</h1>
-  <p>Current weather from the free Open-Meteo API. No API key needed.</p>
-  <form id="search-form">
-    <input id="city-input" type="text" placeholder="Enter a city, e.g. New Delhi" required>
-    <button type="submit">Search</button>
-    <label><input type="checkbox" id="fahrenheit"> Show in Fahrenheit</label>
+
+<main class="app">
+  <header class="app-header">
+    <h1>🌦️ Weather App</h1>
+    <p class="tagline">Live weather for any city in the world — no sign-up, no API key.</p>
+  </header>
+
+  <!-- ===== Search ===== -->
+  <form class="search-box" id="searchForm">
+    <input type="text" id="cityInput" placeholder="Enter a city name, e.g. Mumbai" autocomplete="off">
+    <button type="submit" id="searchBtn">🔍 Search</button>
   </form>
-  <div class="quick">
-    <span>Try: </span>
-    <button type="button" data-city="New Delhi">New Delhi</button>
-    <button type="button" data-city="London">London</button>
-    <button type="button" data-city="New York">New York</button>
-  </div>
-  <div id="result"><p>Search for a city to see its current weather.</p></div>
-  <script src="app.js"></script>
+
+  <!-- ===== Loading & error ===== -->
+  <p class="loading hidden" id="loadingMsg">⏳ Fetching the latest weather…</p>
+  <p class="error hidden" id="errorMsg"></p>
+
+  <!-- ===== Current weather ===== -->
+  <section class="current-card hidden" id="currentCard">
+    <div class="current-main">
+      <div class="current-icon" id="currentIcon">☀️</div>
+      <div>
+        <h2 id="cityName">—</h2>
+        <p class="condition" id="conditionText">—</p>
+        <p class="temp" id="currentTemp">—</p>
+      </div>
+    </div>
+    <div class="current-details">
+      <div class="detail">
+        <span class="detail-label">💧 Humidity</span>
+        <span class="detail-value" id="humidityValue">—</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">🌬️ Wind</span>
+        <span class="detail-value" id="windValue">—</span>
+      </div>
+      <div class="detail">
+        <span class="detail-label">🕒 Local time</span>
+        <span class="detail-value" id="timeValue">—</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5-day forecast ===== -->
+  <section class="forecast hidden" id="forecastSection">
+    <h2 class="forecast-title">📅 5-Day Forecast</h2>
+    <div class="forecast-grid" id="forecastGrid"></div>
+  </section>
+
+  <footer class="app-footer">
+    <p>Weather data from <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> — a free weather API, no key required.</p>
+    <p>Built with HTML, CSS &amp; JavaScript by Chandan Yadav.</p>
+  </footer>
+</main>
+
+<script src="app.js"></script>
 </body>
 </html>
